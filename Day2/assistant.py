@@ -25,17 +25,25 @@ def main():
             print("Goodbye !")
             break
         
-        user_message={
-            "role": "user"
-        }
+        messages.append(buildMessage("user",user_input))
+
+        response = client.chat.completions.create(
+            model=os.getenv("MODEL"),
+            messages=messages
+        )
+        
+        ai_reply=response.choices[0].message.content
+        messages.append("AI",ai_reply)
+
+        print("\nAI : ", ai_reply)
 
 
 
-def buildMessage():
+def buildMessage(role, message):
 
     messageObject = {
         "role": role,
-        "message": message
+        "content": message
     }
 
     return messageObject
