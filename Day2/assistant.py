@@ -33,7 +33,7 @@ def main():
         )
         
         ai_reply=response.choices[0].message.content
-        messages.append("AI",ai_reply)
+        messages.append(buildMessage("AI",ai_reply))
 
         print("\nAI : ", ai_reply)
 
