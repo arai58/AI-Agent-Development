@@ -16,7 +16,9 @@ messages = [
 
 def main():
     load_dotenv()
-    response = client.chat.completions.create(
+    response = client.chat.
+    .create(
         model=os.getenv("MODEL"),
         messages= messages
     )
+    print(response.choices[0].message.content)
