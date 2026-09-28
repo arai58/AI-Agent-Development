@@ -1,10 +1,10 @@
-from openai import OpenAi
+from openai import OpenAI
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
-client=OpenAi(
+client=OpenAI(
     base_url=os.getenv("BASE_URL"),
     api_key=os.getenv("API_KEY")
 )
@@ -47,3 +47,6 @@ def buildMessage(role, message):
     }
 
     return messageObject
+
+
+main()
