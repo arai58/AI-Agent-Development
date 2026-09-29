@@ -24,3 +24,4 @@ def generate_password(length):
         password+=secrets.choice(character_list)
 
     return password
+

@@ -1,6 +1,7 @@
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
+from tools import(get_current_time,roll_dice,generate_password)
 
 
 load_dotenv()
@@ -29,15 +30,16 @@ def main():
 
 
         messages.append(buildMessage("user",user_message))
-        response=client.chat.completions.create(
-            model=os.getenv("MODEL"),
-            messages=messages
-        )
+        #response=client.chat.completions.create(
+         #   model=os.getenv("MODEL"),
+         #   messages=messages
+        #)
 
-        ai_response=response.choices[0].message.content
-        print("\nAI : ",ai_response)
+        #ai_response=response.choices[0].message.content
+        reponse=get_response(user_message)
+        print("\nAI : ",response)
 
-        messages.append(buildMessage("assistant",ai_response))
+        messages.append(buildMessage("assistant",response))
 
 
 
@@ -52,5 +54,28 @@ def buildMessage(role,content):
     
     return message
 
+
+def get_response(user_intent):
+
+    user_intent_lower = user_intent.lower()
+    output=""
+    if "time" in user_intent_lower or "clock" in user_intent_lower:
+        output="current time is " + get_current_time()
+    elif "password" in user_intent_lower or "passcode" in user_intent_lower:
+        output="Your generated password of length 12 is " + generate_password(12)
+    elif "dice" in user_intent_lower or "die" in user_intent_lower:
+        output="You rolled "+roll_dice()
+    else:
+        output=get_ai_response()
+
+    return output
+
+def get_ai_response():
+    response=client.chat.completions.create(
+            model=os.getenv("MODEL"),
+            messages=messages
+        )
+
+    return response.choices[0].message.content
 
 main()
