@@ -33,7 +33,7 @@ def main():
 
     print("Hey, welcome to your AI Assitant. Let me know how you want me to support you :")
     for key, value in rolesChoices.items() :
-        print("f{key.title} : {value}")
+        print(f"{key} : {value}")
 
     choice=input("Enter your choice : ")
 
