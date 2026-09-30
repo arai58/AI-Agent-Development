@@ -41,7 +41,7 @@ def main():
             ask_type="Explain"
             ask_length=100        
 
-        filename=filename+user_message[ask_type.length()+1:].strip()
+        filename=filename+user_message[len(ask_type)+1:].strip()
         file_content=read_file(filename)
         
         if(file_content.lower=="filenotfound"):

@@ -30,7 +30,7 @@ def generate_password(length):
 def read_file(fileName):
 
     try:
-        with open(fileName,r) as file:
+        with open(fileName,"r") as file:
             file_content=file.read()
     except FileNotFoundError:
         file_content="FileNotFound"
