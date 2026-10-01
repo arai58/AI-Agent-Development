@@ -1,0 +1,3 @@
+Weather forecast predict future atmospheric conditions.
+
+It uses temperature, humidity, wind speed and pressure.
