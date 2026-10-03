@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 from tool_manager import execute_tool
 from tools import read_file
-
+from retriever import load_documents
 
 load_dotenv()
 
@@ -14,7 +14,8 @@ client=OpenAI(
 
 messages=[]
 
-file_content=""
+file_contents=load_documents()
+file_embeddings={}
 
 def main():
 
