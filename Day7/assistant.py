@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import os
 #from tool_manager import execute_tool
 from planner import choose_tool
+import tools
 
 load_dotenv()
 
@@ -30,32 +31,38 @@ def main():
 
         #get tool
         tool_name=choose_tool(user_message)
-        print("selected tool is {tool}")
+        #print(f"selected tool is {tool_name}")
 
-        messages.append(buildMessage("user",user_message))
+        messages.append(build_message("user",user_message))
         
         result=""
         if(tool_name != "none"):
-            if hasattr(my_other_file, func_var):
-                func_to_call = getattr(my_other_file, func_var)
+            if hasattr(tools, tool_name):
+                func_to_call = getattr(tools, tool_name)
                 result = func_to_call()
                 #print(result)
             else:
-                print(f"Function '{func_var}' not found in the module.")
+                print(f"Function '{tool_name}' not found in the module.")
         else:
             result="no appropriate tool found"
         #if(response.lower()=="none"):
         #    response=get_ai_response()
-        
-        print("\nAI : ", result)
+        prompt=f"""user as asked for {user_message} and tool has returned {result}.
+        response to user naturally.dont not add other information from your side."""
 
-        messages.append(buildMessage("assistant",result))
+        messages.append(build_message("user",prompt))
+
+        ai_response=get_ai_response()
+        #ai_response=response.choices[0].message.content
+        print("\nAI : ", ai_response)
+
+        messages.append(build_message("assistant",ai_response))
 
 
 
 
 
-def buildMessage(role,content):
+def build_message(role,content):
 
     message={
         "role":role,
