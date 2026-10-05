@@ -8,10 +8,6 @@ from fastmcp import FastMCP
 mcp=FastMCP("My MCP Server")
 
 
-if __name__=="__main__":
-    print("Staring MCP Server....")
-    mcp.run()
-
 @mcp.tool()
 def current_time():
     """
@@ -44,3 +40,7 @@ def generate_password(length:12):
         password+=secrets.choice(character_list)
 
     return password
+
+if __name__=="__main__":
+    print("Staring MCP Server....")
+    mcp.run()
