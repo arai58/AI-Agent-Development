@@ -12,7 +12,7 @@ async def main():
     print("-----------------------")
 
     for tool in tools:
-        print(tool)
+        print(tool.name)
 
     result=await execute_tool(client, "roll_dice")
 
