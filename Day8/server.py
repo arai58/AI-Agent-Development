@@ -3,6 +3,7 @@ import string
 import secrets
 import random
 from fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 
 
 mcp=FastMCP("My MCP Server")
