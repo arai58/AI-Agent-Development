@@ -3,10 +3,10 @@ import string
 import secrets
 import random
 from fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 
-
-mcp=FastMCP("My MCP Server")
-
+#mcp=FastMCP("My MCP Server")
+mcp=MCPServer("My MCP Server")
 
 @mcp.tool()
 def current_time():
