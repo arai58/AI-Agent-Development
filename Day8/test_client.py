@@ -16,7 +16,7 @@ async def main():
 
     result=await execute_tool(client, "roll_dice")
 
-    print("Dice result : ", result.connect[0].text)
+    print("Dice result : ", result.content[0].text)
 
     await disconnect(client)
 

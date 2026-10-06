@@ -7,7 +7,6 @@ from fastmcp import FastMCP
 
 mcp=FastMCP("My MCP Server")
 
-
 @mcp.tool()
 def current_time():
     """
@@ -23,10 +22,10 @@ def roll_dice():
     """
     Returns a number after rolling dice of 6.
     """
-    return random.randInt(1,6)
+    return random.randint(1,6)
 
 @mcp.tool()
-def generate_password(length:12):
+def generate_password(length: int = 12):
     """
     Returns a random password generated of asked length or default to legnth of 12. It uses randmly
     Lower case, uppercase, ascii_letters, digits, punctuation.
