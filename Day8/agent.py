@@ -27,11 +27,11 @@ async def main():
 
     #Select appropriate tool using LLM
     tool_name=planner(user_request,tools_list)
-    print(f"LLM has selcted tool for work : {tool_name}")
+    #print(f"LLM has selcted tool for work : {tool_name}")
 
     #Exeute Tool and get response
     mcp_response=await execute_tool(mcp_client, tool_name)
-
+    #print(f"tool response is : {mcp_response}")
     #Disconnect MCP
     await disconnect(mcp_client)
 
@@ -46,7 +46,7 @@ def build_tool_description(tools_list):
     descriptions=""
     
     for tool in tools_list:
-        print(tool)
+        #print(tool)
         descriptions+=f"""
         Tool:
         {tool.name}
@@ -60,7 +60,7 @@ def build_tool_description(tools_list):
 def planner(user_request,tools_list):
 
     tool_description=build_tool_description(tools_list)
-    print(tool_description)
+    #print(tool_description)
     prompt=f"""
     You are an AI Planner. 
     Tools list/details:

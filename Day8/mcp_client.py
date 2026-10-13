@@ -21,7 +21,7 @@ async def disconnect(client):
         None,
         None
     )
-    print("Disconnected from server.")
+    #print("Disconnected from server.")
 
 
 async def discover_tools(client):
