@@ -29,10 +29,15 @@ async def main():
     print(f"LLM has selcted tool for work : {tool_name}")
 
     #Exeute Tool and get response
+    mcp_response=await execute_tool(mcp_client, tool_name)
 
     #Disconnect MCP
     await disconnect(mcp_client)
 
+    #format response in Natural Language
+    final_response=generate_response(user_request,mcp_response)
+
+    print(f"AI : {final_response}")
 
 
 def build_tool_description(tools_list):
@@ -76,6 +81,26 @@ def planner(user_request,tools_list):
 
     return tool_name.strip()
 
+def generate_response(user_request,tool_response):
+
+    prompt=f"""
+        The user asked : {user_request}
+        mcp returned : {tool_response}
+        answer in natural language. Don't add any other information out side of tool response.
+        your job is to make it sound natual.
+    """
+
+    response=llm_client.chat.completions.create(
+        model=os.getenv("MODEL"),
+        messages=[
+            {
+                "role":"user",
+                "content":prompt
+            }
+        ]       
+    )
+
+    return response.choices[0].message.content
 
 if __name__=="__main__":
     asyncio.run(main())
