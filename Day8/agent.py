@@ -1,7 +1,7 @@
 from openai import OpenAI
 from dotenv import load_dotenv
 from mcp_client import *
-import os
+import os, asyncio
 
 
 load_dotenv()
@@ -17,9 +17,9 @@ async def main():
     mcp_client=await connect()
 
     tools_list=await discover_tools(mcp_client)
-
-    for tool_name,descritpion in tools_list.items():
-        print(f"{tool_name} : {descritpion}")
+    
+    for tool in tools_list:
+        print(f"{tool.name} : {tool.description}")
 
     ##Gte user input
     user_request=input("User : ")
@@ -30,18 +30,21 @@ async def main():
 
     #Exeute Tool and get response
 
+    #Disconnect MCP
+    await disconnect(mcp_client)
+
 
 
 def build_tool_description(tools_list):
 
     descriptions=""
 
-    for tool_name,description in tools_list.items():
+    for tool in tools_list:
         descriptions+=f"""
         Tool:
-        {tool_name}
+        {tool.name}
         Description:
-        {description}
+        {tool.description}
         ------------------------------
         """
         return descriptions
@@ -72,3 +75,7 @@ def planner(user_request,tools_list):
     tool_name=response.choices[0].message.content
 
     return tool_name.strip()
+
+
+if __name__=="__main__":
+    asyncio.run(main())
