@@ -24,6 +24,7 @@ async def main():
     ##Gte user input
     user_request=input("User : ")
 
+
     #Select appropriate tool using LLM
     tool_name=planner(user_request,tools_list)
     print(f"LLM has selcted tool for work : {tool_name}")
@@ -43,8 +44,9 @@ async def main():
 def build_tool_description(tools_list):
 
     descriptions=""
-
+    
     for tool in tools_list:
+        print(tool)
         descriptions+=f"""
         Tool:
         {tool.name}
@@ -52,12 +54,13 @@ def build_tool_description(tools_list):
         {tool.description}
         ------------------------------
         """
-        return descriptions
+    
+    return descriptions
 
 def planner(user_request,tools_list):
 
     tool_description=build_tool_description(tools_list)
-
+    print(tool_description)
     prompt=f"""
     You are an AI Planner. 
     Tools list/details:
@@ -68,6 +71,7 @@ def planner(user_request,tools_list):
     1. Select best tool to support user request
     2. Only tool name and no other detail or description
     3. Select tool only from provided tool list.
+    4. If no correct tool is found then return none.
     """
 
     response=llm_client.chat.completions.create(
