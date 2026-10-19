@@ -58,3 +58,19 @@ def planner(state,tools):
     9. If no appropriate tool found then return - NO TOOL FOUND
     Next DECISION:
     """
+
+    response=llm_client.chat.completions.create(
+        model=os.getenv("LLM_MODEL"),
+        messages=[
+            {
+                "role":"system",
+                "content":"You are an AI planner and you job is to find next Action and best tool for it."
+            },
+            {
+                "role":"user",
+                "content":prompt
+            }
+        ]
+    )
+
+    return response.choices[0].message.content.strip()
