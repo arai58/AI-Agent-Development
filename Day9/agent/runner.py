@@ -5,9 +5,9 @@ import asyncio
 
 from mcp_client import *
 
-from agent.planner import planner
-from agent.executor import execute_action
-from agent.loop import run_agent_loop
+from planner import planner
+from executor import execute_action
+from loop import run_agent_loop
 
 load_dotenv()
 
@@ -30,7 +30,7 @@ def format_answer(state):
     Don't mention state or internal details.
     """
 
-    response=client.chat.completions.create(
+    response=llm_client.chat.completions.create(
         model=os.getenv("MODEL"),
         messages=[
             {

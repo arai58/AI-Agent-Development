@@ -5,5 +5,5 @@ async def execute_action(action,state,client):
 
     if hasattr(result,"content"):
         if result.content:
-            return result.conent[0].text
+            return result.content[0].text
         return str(result)

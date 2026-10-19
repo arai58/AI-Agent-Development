@@ -1,11 +1,11 @@
-from opneai import OpenAI
+from openai import OpenAI
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
 llm_client=OpenAI(
-    base_url=os.env("BASE_URL"),
+    base_url=os.getenv("BASE_URL"),
     api_key=os.getenv("API_KEY")
 )
 
@@ -43,9 +43,10 @@ def decompose_task(user_request):
     tasks=[]
     if response.choices[0]:
         result=response.choices[0].message.content.strip()
-
+        print(f"result returned \n{result}")
+        print("------------------")
         for line in result.splitlines():
-            line=line.split()
+            line=line.strip()
             if line:
                 tasks.append(line)
     
